@@ -4,6 +4,7 @@ package br.com.alura.budgetbackend.service;
 import br.com.alura.budgetbackend.model.Income;
 import br.com.alura.budgetbackend.repository.IncomeRepository;
 import br.com.alura.budgetbackend.service.exceptions.DuplicateIncomeException;
+import br.com.alura.budgetbackend.service.exceptions.IncomeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,18 @@ public class IncomeService {
             }
         });
         return incomeRepository.save(income);
+    }
+
+    public List<Income> findAll() {
+        return incomeRepository.findAll();
+    }
+
+    public Income findById(Long id) {
+        Optional<Income> income = incomeRepository.findById(id);
+        if(income.isEmpty()) {
+            throw new IncomeNotFoundException("Receita não encontrada!");
+        }
+        return income.get();
     }
 
 
