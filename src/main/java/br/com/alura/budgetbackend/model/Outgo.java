@@ -1,6 +1,7 @@
 package br.com.alura.budgetbackend.model;
 
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -21,6 +22,7 @@ public class Outgo {
     @Column(name = "data")
     private String data;
 
-    
+    @Column(name = "categoria")
+    private Category category;
 
 }
