@@ -1,5 +1,6 @@
 package br.com.alura.budgetbackend.controller;
 
+import br.com.alura.budgetbackend.model.Income;
 import br.com.alura.budgetbackend.model.Outgo;
 import br.com.alura.budgetbackend.service.OutgoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,9 @@ public class OutgoController {
     }
 
     @GetMapping("/despesas")
-    public ResponseEntity<List<Outgo>> getAllOutgos() {
-        List<Outgo> outgos = outgoService.findAll();
-        return ResponseEntity.ok().body(outgos);
+    public ResponseEntity<List<Outgo>> getAllOutgo(@RequestParam(required = false) String descricao) {
+        List<Outgo> outgoing = descricao == null ? outgoService.findAll() : outgoService.findByDescription(descricao);
+        return ResponseEntity.ok().body(outgoing);
     }
 
     @GetMapping("/despesas/{id}")

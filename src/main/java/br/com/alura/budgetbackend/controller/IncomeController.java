@@ -4,6 +4,7 @@ import br.com.alura.budgetbackend.model.Income;
 import br.com.alura.budgetbackend.service.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,9 +27,16 @@ public class IncomeController {
     }
 
     @GetMapping("/receitas")
-    public ResponseEntity<List<Income>> getAllIncomes() {
-        List<Income> incomes = incomeService.findAll();
+    public ResponseEntity<List<Income>> getAllIncomes(@RequestParam(required = false) String descricao) {
+        List<Income> incomes = descricao == null ? incomeService.findAll() : incomeService.findByDescription(descricao);
         return ResponseEntity.ok().body(incomes);
+
+//        if(description.isEmpty()) {
+//            List<Income> incomes = incomeService.findAll();
+//            return ResponseEntity.ok().body(incomes);
+//        }
+//        List<Income> incomes = incomeService.findByDescription(description);
+//        return ResponseEntity.ok().body(incomes);
     }
 
     @GetMapping("/receitas/{id}")

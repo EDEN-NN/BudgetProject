@@ -2,6 +2,7 @@ package br.com.alura.budgetbackend.service;
 
 
 import br.com.alura.budgetbackend.model.Category;
+import br.com.alura.budgetbackend.model.Income;
 import br.com.alura.budgetbackend.model.Outgo;
 import br.com.alura.budgetbackend.repository.OutgoRepository;
 import br.com.alura.budgetbackend.service.exceptions.BudgetNotFoundException;
@@ -33,6 +34,10 @@ public class OutgoService {
 
     public List<Outgo> findAll() {
         return outgoRepository.findAll();
+    }
+
+    public List<Outgo> findByDescription(String description) {
+        return outgoRepository.findByDescription(description);
     }
 
     public Outgo findById(Long id) {

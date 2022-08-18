@@ -31,6 +31,10 @@ public class IncomeService {
         return incomeRepository.findAll();
     }
 
+    public List<Income> findByDescription(String description) {
+        return incomeRepository.findByDescription(description);
+    }
+
     public Income findById(Long id) {
         Optional<Income> income = incomeRepository.findById(id);
         if(income.isEmpty()) {
