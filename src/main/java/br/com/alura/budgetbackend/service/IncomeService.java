@@ -39,5 +39,24 @@ public class IncomeService {
         return income.get();
     }
 
+    public Income updateIncome(Long id, Income income) {
+        List<Income> list = incomeRepository.findAll();
+        list.forEach((obj) -> {
+            if(obj.getDescription().equals(income.getDescription()) && obj.getData().equals(income.getData())) {
+                throw new DuplicateIncomeException("Receita já existente!");
+            }
+        });
+        income.setId(id);
+        return incomeRepository.save(income);
+    }
+
+    public void deleteIncome(Long id) {
+        Income income = this.findById(id);
+        if(income == null) {
+            throw new IncomeNotFoundException("Receita não existe!");
+        }
+        incomeRepository.delete(income);
+    }
+
 
 }
