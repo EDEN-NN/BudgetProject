@@ -8,6 +8,7 @@ import br.com.alura.budgetbackend.service.exceptions.BudgetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,21 @@ public class IncomeService {
         return incomeRepository.findByDescription(description);
     }
 
+    public List<Income> findByDate(String year, String month) {
+        List<Income> list = this.findAll();
+        List<Income> auxList = new ArrayList<>();
+        list.stream().forEach(item -> {
+            String[] aux;
+            aux = item.getData().split("/");
+            if(aux[1].equals(month)) {
+                if (aux[2].equals(year)) {
+                    auxList.add(item);
+                }
+            }
+        });
+        return auxList;
+    }
+
     public Income findById(Long id) {
         Optional<Income> income = incomeRepository.findById(id);
         if(income.isEmpty()) {
@@ -42,6 +58,7 @@ public class IncomeService {
         }
         return income.get();
     }
+
 
     public Income updateIncome(Long id, Income income) {
         List<Income> list = incomeRepository.findAll();

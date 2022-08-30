@@ -14,4 +14,6 @@ public interface IncomeRepository extends JpaRepository<Income, Long> {
     @Query(value = "SELECT * FROM income WHERE description LIKE %?1%", nativeQuery = true)
     List<Income> findByDescription(String description);
 
+
+
 }
